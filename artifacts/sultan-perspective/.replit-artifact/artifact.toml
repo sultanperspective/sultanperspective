@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Sultan Perspective"
+description = "A premium real estate media website for Sultan Perspective, showcasing drone photography, 360° virtual tours, property imagery, floor plans, pricing packages, and a booking estimator for real estate professionals."
+version = "1.0.0"
+id = "artifacts/sultan-perspective"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20015
+
+[services.development]
+run = "pnpm --filter @workspace/sultan-perspective run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sultan-perspective", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/sultan-perspective/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20015"
+BASE_PATH = "/"

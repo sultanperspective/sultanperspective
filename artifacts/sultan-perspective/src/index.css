@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 37 29% 95%;
+  --foreground: 220 19% 13%;
+  --border: 35 16% 82%;
+  --card: 39 29% 97%;
+  --card-foreground: 220 19% 13%;
+  --primary: 36 77% 55%;
+  --primary-foreground: 220 19% 13%;
+  --secondary: 220 19% 13%;
+  --secondary-foreground: 37 29% 95%;
+  --muted: 35 16% 88%;
+  --muted-foreground: 220 8% 43%;
+  --accent: 14 63% 47%;
+  --accent-foreground: 39 29% 97%;
+  --destructive: 0 58% 47%;
+  --destructive-foreground: 39 29% 97%;
+  --input: 35 16% 78%;
+  --ring: 36 77% 55%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Space Grotesk', sans-serif;
+  --app-font-mono: 'Space Grotesk', monospace;
+  --radius: .35rem;
+  --elevate-1: rgba(29, 32, 39, .05);
+  --elevate-2: rgba(29, 32, 39, .1);
+}
+
+.dark {
+  --background: 220 19% 13%;
+  --foreground: 37 29% 95%;
+  --border: 220 14% 24%;
+  --card: 220 17% 16%;
+  --card-foreground: 37 29% 95%;
+  --primary: 36 77% 55%;
+  --primary-foreground: 220 19% 13%;
+  --secondary: 37 29% 95%;
+  --secondary-foreground: 220 19% 13%;
+  --muted: 220 14% 24%;
+  --muted-foreground: 37 10% 70%;
+  --accent: 14 63% 47%;
+  --accent-foreground: 39 29% 97%;
+  --destructive: 0 58% 55%;
+  --destructive-foreground: 39 29% 97%;
+  --input: 220 14% 28%;
+  --ring: 36 77% 55%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply font-sans antialiased bg-background text-foreground; }
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+input, select {
+  width: 100%; border: 1px solid hsl(35 16% 78%); background: hsl(37 29% 95%);
+  padding: .8rem .85rem; font: inherit; font-size: .875rem; color: hsl(220 19% 13%);
+  outline: none; border-radius: 0; transition: border-color .2s ease, background-color .2s ease;
+}
+input:focus, select:focus { border-color: hsl(36 77% 55%); background: hsl(39 29% 97%); }
+input::placeholder { color: hsl(220 8% 58%); }
+.display-font { font-family: var(--app-font-serif); }
+.mono-label { font-family: var(--app-font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.hero-grid {
+  background-image: linear-gradient(hsl(37 29% 95% / .06) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(37 29% 95% / .06) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.noise::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+.reveal { animation: reveal .8s cubic-bezier(.2,.75,.25,1) both; }
+.reveal-delay-1 { animation-delay: .1s; } .reveal-delay-2 { animation-delay: .2s; }
+.reveal-delay-3 { animation-delay: .3s; } .reveal-delay-4 { animation-delay: .4s; }
+@keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(-1deg); } }
+.float-slow { animation: float 7s ease-in-out infinite; }
+.service-card { transition: transform .35s cubic-bezier(.2,.75,.25,1), border-color .35s ease, background-color .35s ease; }
+.service-card:hover { transform: translateY(-7px); }
+.package-card { transition: transform .35s cubic-bezier(.2,.75,.25,1), box-shadow .35s ease; }
+.package-card:hover { transform: translateY(-6px); box-shadow: 0 22px 45px -24px hsl(220 19% 13% / .45); }
+.gold-rule { height: 1px; background: linear-gradient(90deg, transparent, hsl(36 77% 55%), transparent); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

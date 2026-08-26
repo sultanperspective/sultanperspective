@@ -1,0 +1,37 @@
+Create a modern, sleek, and high-converting responsive website for a real estate photography and virtual tour business using HTML, Tailwind CSS, and JavaScript.
+
+Design & Vibe:
+- Dark mode primary (dark slate background #0f172a with neon accent colors like bright emerald or cyan for borders and highlights).
+- Clean, premium, and interactive layout optimized for real estate agents and developers.
+
+Page Structure:
+1. Hero Section:
+   - Catchy Headline: "Elevate Your Listings with Next-Gen Spatial Media"
+   - Subheadline: "Specializing in 360° Virtual Tours, Ultra-Wide Interior Photography, and High-Altitude Drone Shots."
+   - CTA Buttons: "View Pricing" and "Book a Shoot".
+
+2. Interactive Services Grid (Cards with hover effects):
+   - 360° Interactive Virtual Tours (Insta360 / Spatial scans)
+   - Drone Aerial Photography & 4K Video Coverage
+   - High-End Interior & Exterior Real Estate Photography
+   - Floor Plans & Property Site Maps
+
+3. Interactive Pricing Section (3 Customizable Packages):
+   - Package 1: "Standard Listing Package" (Price placeholder)
+     - Features: HD Interior & Exterior Photos, Basic Floor Plan, 24-Hour Turnaround.
+   - Package 2: "Pro Interactive Package" (Featured/Popular Tag)
+     - Features: Everything in Standard + 360° Interactive Virtual Tour, HDR Bracketed Editing, Highlight Video.
+   - Package 3: "Ultimate Drone & 360 Package"
+     - Features: Everything in Pro + High-Altitude Aerial Drone Shots, 3D Digital Twin Scan, Priority Editing.
+   - Include a "Customize Package" button under each package for custom add-ons.
+
+4. Interactive Customizer / Price Estimator (JavaScript-driven):
+   - Checkboxes for add-ons (e.g., Aerial Drone Shot +$100, Dusk/Twilight Shooting +$75, Advanced AI Object Removal +$50).
+   - Dynamic total price calculator that updates instantly based on selections.
+
+5. Booking / Contact Form:
+   - Fields: Name, Email, Phone, Property Address, Square Footage, Date Picker, Package Selection.
+
+6. Technical Requirements:
+   - Clean, modular Code structure so I can easily edit text, images, prices, and features later.
+   - Responsive design (works perfectly on desktop, tablet, and mobile).

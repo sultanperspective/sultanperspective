@@ -1,6 +1,6 @@
-# [Project name]
+# Sultan Perspective
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A premium responsive marketing site for Sultan Perspective, a real estate photography and spatial media studio.
 
 ## Run & Operate
 
@@ -22,23 +22,33 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/sultan-perspective/src/App.tsx` — single-page site composition and client-side interactions
+- `artifacts/sultan-perspective/src/constants.ts` — editable brand, service, package, and add-on content
+- `artifacts/sultan-perspective/src/index.css` — site theme, responsive layout, motion, and visual tokens
+- `artifacts/sultan-perspective/public/assets/` — supplied English and Arabic price-list references
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- This first version is frontend-only so the estimator and booking experience work immediately without requiring a service account or external integration.
+- Package and add-on pricing is centralized in `src/constants.ts` so the public price presentation can be updated without searching through JSX.
+- The supplied English and Arabic 2026 price lists are used as visual/content references while the website presents the same business as a more interactive digital experience.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Responsive one-page marketing site for real estate agents and developers
+- Service showcase covering aerial, interior, virtual tour, and mapping work
+- Standard, Pro, and Ultimate packages with selectable add-ons and a live total
+- Client-side validated booking form with a clear success state
+- Mobile navigation, pricing anchors, and a lightweight work/reel interaction
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+The user provided Sultan Perspective brand references and requested a modern, sleek, high-converting responsive website.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- The web artifact workflow supplies `PORT` and `BASE_PATH`; use the managed workflow rather than starting Vite manually.
+- Booking submissions are currently client-side only and do not send to a CRM or email service.
 
 ## Pointers
 
