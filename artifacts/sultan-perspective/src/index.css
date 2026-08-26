@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -94,6 +94,10 @@ input:focus, select:focus { border-color: hsl(36 77% 55%); background: hsl(39 29
 input::placeholder { color: hsl(220 8% 58%); }
 .display-font { font-family: var(--app-font-serif); }
 .mono-label { font-family: var(--app-font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.locale-ar { font-family: 'Noto Sans Arabic', var(--app-font-sans); }
+.locale-ar .display-font { font-family: 'Noto Sans Arabic', var(--app-font-sans); letter-spacing: -.045em; }
+.locale-ar .mono-label { font-family: 'Noto Sans Arabic', var(--app-font-sans); letter-spacing: 0; text-transform: none; }
+.locale-ar input, .locale-ar select { font-family: 'Noto Sans Arabic', var(--app-font-sans); }
 .hero-grid {
   background-image: linear-gradient(hsl(37 29% 95% / .06) 1px, transparent 1px),
     linear-gradient(90deg, hsl(37 29% 95% / .06) 1px, transparent 1px);
