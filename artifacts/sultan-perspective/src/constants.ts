@@ -5,12 +5,15 @@ export type LocalizedText = {
   ar: string;
 };
 
+export type PackageCategory = 'residential' | 'land-commercial';
+
 export type PackageOffer = {
   id: string;
+  category: PackageCategory;
   name: LocalizedText;
   eyebrow: LocalizedText;
   price: number;
-  unit: LocalizedText;
+  measurement: LocalizedText;
   description: LocalizedText;
   features: LocalizedText[];
   tone: 'dark' | 'gold' | 'light';
@@ -40,12 +43,21 @@ export const brand = {
   } satisfies LocalizedText,
 };
 
+export const promotions = {
+  bundle: { percent: 30, minimumProperties: 2 },
+  loyalty: { bookedProperties: 5, freeProperty: 6 },
+} as const;
+
 export const copy = {
   nav: {
     services: { en: 'Services', ar: 'الخدمات' },
     pricing: { en: 'Pricing', ar: 'الأسعار' },
     approach: { en: 'Approach', ar: 'منهجيتنا' },
     booking: { en: 'Book a shoot', ar: 'احجز جلسة تصوير' },
+  },
+  menu: {
+    open: { en: 'Open menu', ar: 'فتح القائمة' },
+    close: { en: 'Close menu', ar: 'إغلاق القائمة' },
   },
   language: {
     switchToArabic: 'العربية / EN',
@@ -57,6 +69,12 @@ export const copy = {
     viewPricing: { en: 'View pricing', ar: 'عرض الأسعار' },
     playReel: { en: 'Play studio reel', ar: 'تشغيل عرض الاستوديو' },
     scroll: { en: 'Scroll to explore', ar: 'مرّر للاستكشاف' },
+  },
+  promotions: {
+    eyebrow: { en: 'Special offer / Book more, save more', ar: 'عرض خاص / احجز أكثر، ووفر أكثر' },
+    bundle: { en: '30% discount for every 2 properties booked together', ar: 'خصم 30٪ لكل عقارين يتم حجزهما معاً' },
+    loyalty: { en: 'Book 5 properties and get the 6th property shoot completely FREE', ar: 'احجز 5 عقارات واحصل على تصوير العقار السادس مجاناً بالكامل' },
+    note: { en: 'The best available offer is applied automatically in your estimate.', ar: 'يتم تطبيق العرض الأفضل تلقائياً في تقديرك.' },
   },
   services: {
     eyebrow: { en: 'What we capture', ar: 'ما نوثّقه' },
@@ -97,9 +115,13 @@ export const copy = {
   pricing: {
     eyebrow: { en: '2026 price list', ar: 'قائمة أسعار 2026' },
     titleLead: { en: 'Choose your', ar: 'اختر' },
-    titleAccent: { en: 'altitude.', ar: 'مستواك.' },
-    description: { en: 'Simple packages, transparent extras, and a finish worthy of the listing.', ar: 'باقات واضحة، إضافات شفافة، ونتيجة تليق بعقارك.' },
-    mostRequested: { en: 'Most requested', ar: 'الأكثر طلباً' },
+    titleAccent: { en: 'coverage.', ar: 'تغطيتك.' },
+    description: { en: 'Clear property limits, transparent extras, and a finish worthy of the listing.', ar: 'حدود مساحة واضحة، إضافات شفافة، ونتيجة تليق بعقارك.' },
+    residential: { en: 'Residential packages', ar: 'الباقات السكنية' },
+    residentialNote: { en: 'For apartments, villas, and homes up to 150m².', ar: 'للشقق والفلل والمنازل حتى 150 متر مربع.' },
+    commercialLand: { en: 'Commercial & land packages', ar: 'باقات الأراضي والمنشآت التجارية' },
+    commercialLandNote: { en: 'Purpose-built coverage for sites and facilities with larger footprints.', ar: 'تغطية مصممة للأراضي والمنشآت ذات المساحات الأكبر.' },
+    mostRequested: { en: 'Popular', ar: 'الأكثر طلباً' },
     select: { en: 'Select', ar: 'اختيار' },
     currencyLabel: { en: 'Display currency', ar: 'العملة المعروضة' },
     localCurrency: { en: 'Lebanese pound', ar: 'الليرة اللبنانية' },
@@ -110,8 +132,19 @@ export const copy = {
     eyebrow: { en: 'Build your brief', ar: 'صمّم طلبك' },
     titleLead: { en: 'Add the', ar: 'أضف' },
     titleAccent: { en: 'finishing moves.', ar: 'اللمسات الأخيرة.' },
-    description: { en: 'Start from {package}, then tune the coverage to match the property.', ar: 'ابدأ من {package}، ثم عدّل التغطية بما يناسب العقار.' },
+    description: { en: 'Start from {package}, add more properties or services, and see the best offer applied live.', ar: 'ابدأ من {package}، أضف عقارات أو خدمات، وشاهد العرض الأفضل يُطبّق فوراً.' },
     estimateLabel: { en: 'Your estimate', ar: 'تقديرك' },
+    propertyCount: { en: 'Number of properties', ar: 'عدد العقارات' },
+    propertyHelp: { en: 'All selected services are priced per property.', ar: 'تُحتسب جميع الخدمات المختارة لكل عقار.' },
+    propertyMinus: { en: 'Remove one property', ar: 'إزالة عقار واحد' },
+    propertyPlus: { en: 'Add one property', ar: 'إضافة عقار واحد' },
+    base: { en: 'Package + selected services', ar: 'الباقة + الخدمات المختارة' },
+    addOnsTitle: { en: 'Add-on services / select with or without a package', ar: 'خدمات إضافية / اخترها مع الباقة أو بدونها' },
+    bundleSavings: { en: 'Bundle offer · 30% off every pair', ar: 'عرض الحجز المزدوج · خصم 30٪ لكل عقارين' },
+    loyaltySavings: { en: 'Loyalty offer · 6th property free', ar: 'عرض الوفاء · العقار السادس مجاناً' },
+    savings: { en: 'Savings applied', ar: 'التوفير المطبق' },
+    noSavings: { en: 'Add a second property to unlock an offer.', ar: 'أضف عقاراً ثانياً للاستفادة من العرض.' },
+    notStacked: { en: 'Offers do not stack; the best value is applied.', ar: 'لا يمكن جمع العروض؛ يتم تطبيق القيمة الأفضل.' },
     confirmation: { en: 'Final quote confirmed after address review.', ar: 'يتم تأكيد السعر النهائي بعد مراجعة العنوان.' },
     continue: { en: 'Continue to booking', ar: 'متابعة إلى الحجز' },
   },
@@ -143,6 +176,7 @@ export const copy = {
       date: { en: 'Preferred date', ar: 'التاريخ المفضل' },
       address: { en: 'Property address', ar: 'عنوان العقار' },
       squareFootage: { en: 'Approx. square footage', ar: 'المساحة التقريبية' },
+      propertyCount: { en: 'Number of properties', ar: 'عدد العقارات' },
       package: { en: 'Package', ar: 'الباقة' },
     },
     placeholders: {
@@ -151,6 +185,7 @@ export const copy = {
       phone: { en: '+961 ...', ar: '+961 ...' },
       address: { en: 'Street, city, country', ar: 'الشارع، المدينة، البلد' },
       squareFootage: { en: 'e.g. 2400', ar: 'مثال: 2400' },
+      propertyCount: { en: 'e.g. 2', ar: 'مثال: 2' },
     },
     disclaimer: { en: 'By sending this request, you are asking for availability, not confirming a booking.', ar: 'بإرسال هذا الطلب، أنت تستفسر عن التوافر ولا تؤكد الحجز.' },
     submit: { en: 'Request availability', ar: 'اطلب التوافر' },
@@ -179,6 +214,7 @@ export const copy = {
     phone: { en: 'Add a phone number', ar: 'أدخل رقم الهاتف' },
     address: { en: 'Add the property address', ar: 'أدخل عنوان العقار' },
     squareFootage: { en: 'Add the approximate size', ar: 'أدخل المساحة التقريبية' },
+    propertyCount: { en: 'Enter at least one property', ar: 'أدخل عقاراً واحداً على الأقل' },
     date: { en: 'Choose a preferred date', ar: 'اختر التاريخ المفضل' },
     package: { en: 'Choose a package', ar: 'اختر الباقة' },
   },
@@ -186,12 +222,13 @@ export const copy = {
 
 export const packages: PackageOffer[] = [
   {
-    id: 'standard',
-    name: { en: 'Standard Listing', ar: 'الباقة الأساسية' },
-    eyebrow: { en: 'Essential coverage', ar: 'تغطية أساسية' },
+    id: 'basic',
+    category: 'residential',
+    name: { en: 'Basic', ar: 'أساسية' },
+    eyebrow: { en: 'Residential / 01', ar: 'سكنية / 01' },
     price: 77,
-    unit: { en: 'per property', ar: 'للعقار الواحد' },
-    description: { en: 'A precise visual foundation for apartments, villas, and smaller spaces.', ar: 'أساس بصري دقيق للشقق والفلل والمساحات الصغيرة.' },
+    measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
+    description: { en: 'A precise visual foundation for apartments, villas, and smaller homes.', ar: 'أساس بصري دقيق للشقق والفلل والمنازل الصغيرة.' },
     features: [
       { en: 'Aerial drone photos', ar: 'صور جوية بالدرون' },
       { en: '2D floor plan', ar: 'مخطط طوابق ثنائي الأبعاد' },
@@ -200,44 +237,83 @@ export const packages: PackageOffer[] = [
     tone: 'light',
   },
   {
-    id: 'pro',
-    name: { en: 'Pro Interactive', ar: 'الباقة الاحترافية' },
-    eyebrow: { en: 'Most requested', ar: 'الأكثر طلباً' },
+    id: 'premium',
+    category: 'residential',
+    name: { en: 'Premium', ar: 'بريميوم' },
+    eyebrow: { en: 'Residential / 02', ar: 'سكنية / 02' },
     price: 129,
-    unit: { en: 'per property', ar: 'للعقار الواحد' },
-    description: { en: 'The complete listing story, designed to make a scroll stop.', ar: 'قصة عقار متكاملة مصممة لإيقاف التمرير.' },
+    measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
+    description: { en: 'A complete listing story, designed to make a scroll stop.', ar: 'قصة عقار متكاملة مصممة لإيقاف التمرير.' },
     features: [
-      { en: 'Interior + exterior photos', ar: 'صور داخلية وخارجية' },
-      { en: 'Aerial video up to 30 seconds', ar: 'فيديو جوي حتى 30 ثانية' },
-      { en: '5 interactive points', ar: '5 نقاط تفاعلية' },
+      { en: 'Interior + exterior photos (up to 10)', ar: 'صور داخلية وخارجية (حتى 10)' },
+      { en: 'Drone video up to 30s', ar: 'فيديو درون حتى 30 ثانية' },
+      { en: '5 interactive tour points (up to 5 photos or short video)', ar: '5 نقاط تفاعلية (حتى 5 صور أو فيديو قصير)' },
     ],
     tone: 'gold',
   },
   {
     id: 'ultimate',
-    name: { en: 'Ultimate Drone & 360', ar: 'باقة الدرون و360 الشاملة' },
-    eyebrow: { en: 'Full command', ar: 'تغطية شاملة' },
+    category: 'residential',
+    name: { en: 'Ultimate', ar: 'شاملة' },
+    eyebrow: { en: 'Residential / 03', ar: 'سكنية / 03' },
     price: 207,
-    unit: { en: 'per property', ar: 'للعقار الواحد' },
+    measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
     description: { en: 'Every angle, every detail, and a tour buyers can inhabit.', ar: 'كل زاوية وكل تفصيل وجولة يعيشها المشتري.' },
     features: [
-      { en: 'All Pro Interactive services', ar: 'جميع خدمات الباقة الاحترافية' },
-      { en: 'Aerial video up to 60 seconds', ar: 'فيديو جوي حتى 60 ثانية' },
-      { en: '10 interactive points', ar: '10 نقاط تفاعلية' },
-      { en: 'Virtual furnishing up to 5 rooms', ar: 'تأثيث افتراضي حتى 5 غرف' },
+      { en: 'All Premium services', ar: 'جميع خدمات بريميوم' },
+      { en: 'Drone video up to 60s', ar: 'فيديو درون حتى 60 ثانية' },
+      { en: '10 interactive tour points (up to 10 photos or 60s video)', ar: '10 نقاط تفاعلية (حتى 10 صور أو فيديو 60 ثانية)' },
+      { en: 'Virtual staging up to 5 rooms', ar: 'تأثيث افتراضي حتى 5 غرف' },
     ],
     tone: 'dark',
+  },
+  {
+    id: 'land',
+    category: 'land-commercial',
+    name: { en: 'Land Package', ar: 'باقة الأراضي' },
+    eyebrow: { en: 'Land / 01', ar: 'أراضٍ / 01' },
+    price: 64,
+    measurement: { en: 'Up to 3000m²', ar: 'حتى 3000 متر مربع' },
+    description: { en: 'Make the full footprint visible, from boundary to approach.', ar: 'أظهر كامل مساحة الأرض، من الحدود إلى المدخل.' },
+    features: [
+      { en: '360° aerial shot', ar: 'لقطة جوية 360°' },
+      { en: 'Boundary mapping', ar: 'تحديد الحدود' },
+      { en: '360° site scan', ar: 'مسح للموقع 360°' },
+    ],
+    tone: 'light',
+  },
+  {
+    id: 'commercial',
+    category: 'land-commercial',
+    name: { en: 'Commercial Package', ar: 'باقة المنشآت التجارية' },
+    eyebrow: { en: 'Commercial / 02', ar: 'تجارية / 02' },
+    price: 129,
+    measurement: { en: 'Up to 500m²', ar: 'حتى 500 متر مربع' },
+    description: { en: 'A clear, publish-ready view of commercial and industrial facilities.', ar: 'صورة واضحة وجاهزة للنشر للمنشآت التجارية والصناعية.' },
+    features: [
+      { en: 'Interior + exterior photos (up to 10)', ar: 'صور داخلية وخارجية (حتى 10)' },
+      { en: 'Drone video up to 30s', ar: 'فيديو درون حتى 30 ثانية' },
+      { en: '2D floor plan', ar: 'مخطط طوابق ثنائي الأبعاد' },
+      { en: '360° virtual tour', ar: 'جولة افتراضية 360°' },
+    ],
+    tone: 'gold',
   },
 ];
 
 export const addOns: AddOn[] = [
-  { id: 'drone', name: { en: 'Add Aerial Drone Coverage', ar: 'إضافة تغطية جوية بالدرون' }, price: 100, note: { en: 'Per flight', ar: 'لكل رحلة طيران' } },
-  { id: 'dusk', name: { en: 'Add Evening / Twilight Shoot', ar: 'إضافة تصوير مسائي / غروب' }, price: 75, note: { en: 'Golden-hour timing', ar: 'توقيت الساعة الذهبية' } },
-  { id: 'floorplan', name: { en: 'Add 3D Floor Plan', ar: 'إضافة مخطط طوابق ثلاثي الأبعاد' }, price: 35, note: { en: 'Per property', ar: 'للعقار الواحد' } },
-  { id: 'removal', name: { en: 'Advanced AI Object Removal', ar: 'إزالة متقدمة للعناصر بالذكاء الاصطناعي' }, price: 50, note: { en: 'Per property', ar: 'للعقار الواحد' } },
+  { id: 'drone30', name: { en: '30-Second Aerial Drone Video', ar: 'فيديو جوي بالدرون لمدة 30 ثانية' }, price: 40, note: { en: 'Per property', ar: 'لكل عقار' } },
+  { id: 'sunset', name: { en: 'Sunset or Night Shoot', ar: 'تصوير عند الغروب أو ليلاً' }, price: 50, note: { en: 'Golden-hour or night timing', ar: 'توقيت الغروب أو الليل' } },
+  { id: 'aerial360', name: { en: '360° Aerial Shot (Single Shot)', ar: 'لقطة جوية 360° (لقطة واحدة)' }, price: 39, note: { en: 'Single aerial shot', ar: 'لقطة جوية واحدة' } },
+  { id: 'droneVideo30', name: { en: 'Aerial Drone Video (Up to 30s)', ar: 'فيديو جوي بالدرون (حتى 30 ثانية)' }, price: 39, note: { en: 'Up to 30 seconds', ar: 'حتى 30 ثانية' } },
+  { id: 'siteScan', name: { en: '360° Site Scan (Up to 150m)', ar: 'مسح للموقع 360° (حتى 150 متراً)' }, price: 39, note: { en: 'Up to 150m', ar: 'حتى 150 متراً' } },
+  { id: 'boundary', name: { en: 'Boundary Mapping (Single Aerial Shot)', ar: 'تحديد الحدود (لقطة جوية واحدة)' }, price: 19, note: { en: 'Single aerial shot', ar: 'لقطة جوية واحدة' } },
+  { id: 'floorplan2d', name: { en: '2D Floor Plan', ar: 'مخطط طوابق ثنائي الأبعاد' }, price: 26, note: { en: 'Publish-ready plan', ar: 'مخطط جاهز للنشر' } },
+  { id: 'staging', name: { en: 'Virtual Staging (Per Room)', ar: 'تأثيث افتراضي (لكل غرفة)' }, price: 19, note: { en: 'Per room', ar: 'لكل غرفة' } },
+  { id: 'interactive', name: { en: 'Interactive Points for Tour (up to 5 photos or short video)', ar: 'نقاط تفاعلية للجولة (حتى 5 صور أو فيديو قصير)' }, price: 13, note: { en: 'Up to 5 points', ar: 'حتى 5 نقاط' } },
+  { id: 'aerialPhotos', name: { en: 'Aerial Drone Photos (5 Photos)', ar: 'صور جوية بالدرون (5 صور)' }, price: 19, note: { en: 'Five edited photos', ar: 'خمس صور معدّلة' } },
 ];
 
-export const quickAddOnIds = ['drone', 'dusk', 'floorplan'] as const;
+export const quickAddOnIds = ['drone30', 'sunset', 'floorplan2d'] as const;
 
 export const currencies = {
   usd: { code: 'USD', symbol: '$', label: { en: 'USD', ar: 'دولار' }, rate: 1 },
