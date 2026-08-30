@@ -66,6 +66,10 @@ export const copy = {
   },
   hero: {
     eyebrow: { en: 'Spatial media / Beirut & beyond', ar: 'إعلام مكاني / بيروت وما بعد' },
+    subheadline: {
+      en: 'Photography, drone, 360° tours and floor plans that help properties stand out.',
+      ar: 'تصوير فوتوغرافي ودرون وجولات 360° ومخططات تساعد عقارك على التميز.',
+    },
     viewPricing: { en: 'View pricing', ar: 'عرض الأسعار' },
     playReel: { en: 'Play studio reel', ar: 'تشغيل عرض الاستوديو' },
     scroll: { en: 'Scroll to explore', ar: 'مرّر للاستكشاف' },
