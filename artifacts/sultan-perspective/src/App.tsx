@@ -16,6 +16,7 @@ import {
   brand,
   copy,
   currencies,
+  droneVideoAddOnIds,
   packages,
   promotions,
   quickAddOnIds,
@@ -53,6 +54,7 @@ const emptySelections = () => ({
   ultimate: [],
   land: [],
   commercial: [],
+  standalone: [],
 });
 
 const getText = (value: LocalizedText, locale: Locale) => value[locale];
@@ -193,7 +195,8 @@ function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
-  const chosenPackage = packages.find((item) => item.id === selectedPackage) ?? packages[1];
+  const chosenPackage = packages.find((item) => item.id === selectedPackage);
+  const isStandalone = selectedPackage === 'standalone';
   const selectedOptions = packageAddOns[selectedPackage] ?? [];
   const rawPropertyCount = Number(form.propertyCount);
   const propertyCount = Math.min(50, Math.max(1, Number.isFinite(rawPropertyCount) ? Math.floor(rawPropertyCount) : 1));
@@ -201,9 +204,20 @@ function App() {
   const addOnTotal = (ids: string[]) =>
     ids.reduce((sum, id) => sum + (addOns.find((item) => item.id === id)?.price ?? 0), 0);
 
+  const packageIncludesDroneVideo = (packageId: string) =>
+    packages.find((item) => item.id === packageId)?.features.some((feature) => feature.en.toLowerCase().includes('drone video')) ?? false;
+
+  const availableAddOnsFor = (packageId: string) =>
+    addOns.filter((addon) => {
+      if (packageId !== 'standalone' && addon.id === 'floorplan2d') return false;
+      if (droneVideoAddOnIds.includes(addon.id as (typeof droneVideoAddOnIds)[number]) && packageIncludesDroneVideo(packageId)) return false;
+      return true;
+    });
+
   const calculateEstimate = (packageId: string) => {
-    const packageOffer = packages.find((item) => item.id === packageId) ?? packages[1];
-    const perPropertyUsd = packageOffer.price + addOnTotal(packageAddOns[packageId] ?? []);
+    const packageOffer = packages.find((item) => item.id === packageId);
+    const selectedForEstimate = (packageAddOns[packageId] ?? []).filter((id) => availableAddOnsFor(packageId).some((addon) => addon.id === id));
+    const perPropertyUsd = (packageOffer?.price ?? 0) + addOnTotal(selectedForEstimate);
     const grossUsd = perPropertyUsd * propertyCount;
     const pairCount = Math.floor(propertyCount / promotions.bundle.minimumProperties);
     const bundleSavingsUsd = pairCount * perPropertyUsd * (promotions.bundle.percent / 100);
@@ -239,7 +253,9 @@ function App() {
     setForm((current) => ({ ...current, packageId }));
     setPackageAddOns((current) => {
       const selected = current[packageId] ?? [];
-      const next = selected.includes(addOnId) ? selected.filter((item) => item !== addOnId) : [...selected, addOnId];
+      const next = selected.includes(addOnId)
+        ? selected.filter((item) => item !== addOnId)
+        : packageId === 'standalone' ? [addOnId] : [...selected, addOnId];
       return { ...current, [packageId]: next };
     });
   };
@@ -265,6 +281,7 @@ function App() {
     if (!form.propertyCount || propertyCount < 1) nextErrors.propertyCount = getText(copy.errors.propertyCount, locale);
     if (!form.date) nextErrors.date = getText(copy.errors.date, locale);
     if (!form.packageId) nextErrors.packageId = getText(copy.errors.package, locale);
+    if (form.packageId === 'standalone' && selectedOptions.length !== 1) nextErrors.packageId = getText(copy.errors.standalone, locale);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length === 0) setSubmitted(true);
   };
@@ -273,8 +290,10 @@ function App() {
     { href: '#pricing', label: getText(copy.nav.pricing, locale) },
     { href: '#booking', label: getText(copy.nav.booking, locale) },
   ];
-  const quickAddOns = addOns.filter(({ id }) => quickAddOnIds.some((quickId) => quickId === id));
-  const activePackageName = getText(chosenPackage.name, locale);
+  const quickAddOnsForPackage = (packageId: string) =>
+    availableAddOnsFor(packageId).filter(({ id }) => quickAddOnIds.some((quickId) => quickId === id));
+  const availableAddOns = availableAddOnsFor(selectedPackage);
+  const activePackageName = isStandalone ? getText(copy.pricing.standalone, locale) : getText(chosenPackage?.name ?? packages[1].name, locale);
 
   const renderPackageCard = (item: PackageOffer, index: number) => {
     const selectedForCard = packageAddOns[item.id] ?? [];
@@ -306,7 +325,7 @@ function App() {
         <div className={`mt-7 border-t pt-5 ${item.tone === 'dark' ? 'border-white/15' : 'border-[#1d2027]/20'}`}>
           <div className={`mono-label mb-3 text-[9px] ${item.tone === 'dark' ? 'text-[#f5eee3]/55' : 'text-[#68676a]'}`}>{getText(copy.pricing.quickOptions, locale)}</div>
           <div className="space-y-2">
-            {quickAddOns.map((addon) => {
+            {quickAddOnsForPackage(item.id).map((addon) => {
               const checked = selectedForCard.includes(addon.id);
               return (
                 <label key={addon.id} className={`flex cursor-pointer items-center gap-3 text-xs ${item.tone === 'dark' ? 'text-[#f5eee3]/75' : 'text-[#1d2027]/75'}`}>
@@ -418,16 +437,36 @@ function App() {
 
         <section id="addons" className="border-y border-[#d5cfc4] bg-[#e8e1d6]">
           <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.75fr_1.25fr] lg:px-12">
-            <div><div className="mono-label text-[10px] text-[#ad6f18]">{getText(copy.estimator.addOnsTitle, locale)}</div><h2 className="display-font mt-5 text-4xl tracking-[-.05em] sm:text-5xl">{getText(copy.estimator.titleLead, locale)} <span className="text-[#b9791d]">{getText(copy.estimator.titleAccent, locale)}</span></h2></div>
+            <div>
+              <div className="mono-label text-[10px] text-[#ad6f18]">{getText(copy.estimator.addOnsTitle, locale)}</div>
+              <h2 className="display-font mt-5 text-4xl tracking-[-.05em] sm:text-5xl">{getText(copy.estimator.titleLead, locale)} <span className="text-[#b9791d]">{getText(copy.estimator.titleAccent, locale)}</span></h2>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedPackage('standalone');
+                  updateField('packageId', 'standalone');
+                }}
+                className={`mt-8 w-full border p-5 text-start transition-colors ${isStandalone ? 'border-[#1d2027] bg-[#1d2027] text-[#f5eee3]' : 'border-[#cfc7ba] bg-[#f1ece3] hover:border-[#b9791d]'}`}
+                aria-pressed={isStandalone}
+                data-testid="button-standalone-service"
+              >
+                <span className={`mono-label text-[9px] ${isStandalone ? 'text-[#d29a38]' : 'text-[#8d671e]'}`}>{getText(copy.pricing.standaloneNote, locale)}</span>
+                <span className="mt-2 flex items-center justify-between gap-3 text-sm font-semibold">
+                  {getText(copy.pricing.standalone, locale)}
+                  <ArrowUpRight className="size-4 text-[#b9791d]" />
+                </span>
+              </button>
+            </div>
             <div className="border border-[#cfc7ba] bg-[#f1ece3]">
               <div className="flex flex-col gap-5 border-b border-[#d5cfc4] px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
                 <div><span className="mono-label text-[9px] text-[#68676a]">{getText(copy.estimator.estimateLabel, locale)} · {activePackageName}</span><div className="mt-2 flex items-center gap-2"><button type="button" onClick={() => changePropertyCount(propertyCount - 1)} className="grid size-8 place-items-center border border-[#cfc7ba] text-lg hover:border-[#b9791d]" aria-label={getText(copy.estimator.propertyMinus, locale)} data-testid="button-property-minus">−</button><input type="number" min="1" max="50" value={propertyCount} onChange={(event) => changePropertyCount(Number(event.target.value))} className="!w-16 !px-2 !py-1 text-center text-lg font-semibold" aria-label={getText(copy.estimator.propertyCount, locale)} data-testid="input-property-count" /><button type="button" onClick={() => changePropertyCount(propertyCount + 1)} className="grid size-8 place-items-center border border-[#cfc7ba] text-lg hover:border-[#b9791d]" aria-label={getText(copy.estimator.propertyPlus, locale)} data-testid="button-property-plus">+</button><span className="ms-2 text-xs text-[#68676a]">{getText(copy.estimator.propertyCount, locale)}</span></div></div>
                 <span className="display-font text-3xl">{formatMoney(currentEstimate.totalUsd, currency, locale)}</span>
               </div>
               <div className="divide-y divide-[#d5cfc4]">
-                <div className="flex items-center justify-between gap-4 px-5 py-4 text-sm"><span className="text-[#68676a]">{getText(copy.estimator.base, locale)} × {propertyCount}</span><span className="font-semibold">{formatMoney(currentEstimate.grossUsd, currency, locale)}</span></div>
+                <div className="flex items-center justify-between gap-4 px-5 py-4 text-sm"><span className="text-[#68676a]">{getText(isStandalone ? copy.estimator.standaloneBase : copy.estimator.base, locale)} × {propertyCount}</span><span className="font-semibold">{formatMoney(currentEstimate.grossUsd, currency, locale)}</span></div>
                 {currentEstimate.offer !== 'none' ? <div className="flex items-center justify-between gap-4 px-5 py-4 text-sm text-[#8d671e]"><span>{getText(currentEstimate.offer === 'loyalty' ? copy.estimator.loyaltySavings : copy.estimator.bundleSavings, locale)}</span><span className="font-semibold">−{formatMoney(currentEstimate.savingsUsd, currency, locale)}</span></div> : <div className="px-5 py-4 text-xs text-[#7e7b78]">{getText(copy.estimator.noSavings, locale)}</div>}
-                {addOns.map((addon) => {
+                {isStandalone && <div className="border-b border-[#d5cfc4] px-5 py-3 text-xs text-[#8d671e]">{getText(copy.estimator.standalonePrompt, locale)}</div>}
+                {availableAddOns.map((addon) => {
                   const checked = selectedOptions.includes(addon.id);
                   return <label key={addon.id} className="flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-start transition-colors hover:bg-[#e8e1d6]"><input type="checkbox" className="sr-only" checked={checked} onChange={() => togglePackageAddOn(selectedPackage, addon.id)} data-testid={`checkbox-estimator-${addon.id}`} /><span className={`grid size-5 place-items-center border ${checked ? 'border-[#1d2027] bg-[#1d2027] text-[#d29a38]' : 'border-[#ada69c]'}`}>{checked && <Check className="size-3.5" />}</span><span className="flex-1"><span className="block text-sm font-semibold">{getText(addon.name, locale)}</span><span className="mt-1 block text-xs text-[#7e7b78]">{getText(addon.note, locale)}</span></span><span className="text-sm font-semibold">+{formatMoney(addon.price * propertyCount, currency, locale)}</span></label>;
                 })}

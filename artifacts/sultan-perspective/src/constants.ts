@@ -5,7 +5,7 @@ export type LocalizedText = {
   ar: string;
 };
 
-export type PackageCategory = 'residential' | 'land-commercial';
+export type PackageCategory = 'residential' | 'land-commercial' | 'standalone';
 
 export type PackageOffer = {
   id: string;
@@ -127,6 +127,8 @@ export const copy = {
     commercialLandNote: { en: 'Purpose-built coverage for sites and facilities with larger footprints.', ar: 'تغطية مصممة للأراضي والمنشآت ذات المساحات الأكبر.' },
     mostRequested: { en: 'Popular', ar: 'الأكثر طلباً' },
     select: { en: 'Select', ar: 'اختيار' },
+    standalone: { en: 'Standalone service request', ar: 'طلب خدمة منفردة' },
+    standaloneNote: { en: 'A la carte · choose one service', ar: 'حسب الطلب · اختر خدمة واحدة' },
     currencyLabel: { en: 'Display currency', ar: 'العملة المعروضة' },
     localCurrency: { en: 'Lebanese pound', ar: 'الليرة اللبنانية' },
     quickOptions: { en: 'Quick options', ar: 'خيارات سريعة' },
@@ -143,7 +145,9 @@ export const copy = {
     propertyMinus: { en: 'Remove one property', ar: 'إزالة عقار واحد' },
     propertyPlus: { en: 'Add one property', ar: 'إضافة عقار واحد' },
     base: { en: 'Package + selected services', ar: 'الباقة + الخدمات المختارة' },
+    standaloneBase: { en: 'Standalone service', ar: 'الخدمة المنفردة' },
     addOnsTitle: { en: 'Add-on services / select with or without a package', ar: 'خدمات إضافية / اخترها مع الباقة أو بدونها' },
+    standalonePrompt: { en: 'Select one service for an a-la-carte request.', ar: 'اختر خدمة واحدة لطلب منفرد حسب الطلب.' },
     bundleSavings: { en: 'Bundle offer · 30% off every pair', ar: 'عرض الحجز المزدوج · خصم 30٪ لكل عقارين' },
     loyaltySavings: { en: 'Loyalty offer · 6th property free', ar: 'عرض الوفاء · العقار السادس مجاناً' },
     savings: { en: 'Savings applied', ar: 'التوفير المطبق' },
@@ -221,6 +225,7 @@ export const copy = {
     propertyCount: { en: 'Enter at least one property', ar: 'أدخل عقاراً واحداً على الأقل' },
     date: { en: 'Choose a preferred date', ar: 'اختر التاريخ المفضل' },
     package: { en: 'Choose a package', ar: 'اختر الباقة' },
+    standalone: { en: 'Choose one standalone service above', ar: 'اختر خدمة منفردة واحدة أعلاه' },
   },
 } as const;
 
@@ -302,6 +307,17 @@ export const packages: PackageOffer[] = [
     ],
     tone: 'gold',
   },
+  {
+    id: 'standalone',
+    category: 'standalone',
+    name: { en: 'Standalone Service Request', ar: 'طلب خدمة منفردة' },
+    eyebrow: { en: 'A la carte', ar: 'حسب الطلب' },
+    price: 0,
+    measurement: { en: 'Choose one service', ar: 'اختر خدمة واحدة' },
+    description: { en: 'Request one service without a preset package.', ar: 'اطلب خدمة واحدة بدون باقة جاهزة.' },
+    features: [],
+    tone: 'light',
+  },
 ];
 
 export const addOns: AddOn[] = [
@@ -317,7 +333,8 @@ export const addOns: AddOn[] = [
   { id: 'aerialPhotos', name: { en: 'Aerial Drone Photos (5 Photos)', ar: 'صور جوية بالدرون (5 صور)' }, price: 19, note: { en: 'Five edited photos', ar: 'خمس صور معدّلة' } },
 ];
 
-export const quickAddOnIds = ['drone30', 'sunset', 'floorplan2d'] as const;
+export const quickAddOnIds = ['drone30', 'sunset'] as const;
+export const droneVideoAddOnIds = ['drone30', 'droneVideo30'] as const;
 
 export const currencies = {
   usd: { code: 'USD', symbol: '$', label: { en: 'USD', ar: 'دولار' }, rate: 1 },
