@@ -345,6 +345,9 @@ function App() {
         <button type="button" onClick={() => scrollToBooking(item.id)} className={`group mt-6 flex items-center justify-between border-t pt-5 text-start text-[10px] font-bold uppercase tracking-[.16em] ${item.tone === 'dark' ? 'border-white/15 text-[#f5eee3]' : 'border-[#1d2027]/20 text-[#1d2027]'}`} data-testid={`button-select-package-${item.id}`}>
           {getText(copy.pricing.select, locale)} {getText(item.name, locale)} <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
         </button>
+        <p className={`mt-4 text-[10px] leading-4 ${item.tone === 'dark' ? 'text-[#f5eee3]/55' : 'text-[#68676a]'}`}>
+          {getText(copy.pricing.priceDisclaimer, locale)}
+        </p>
       </article>
     );
   };

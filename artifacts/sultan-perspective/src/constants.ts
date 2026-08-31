@@ -127,6 +127,10 @@ export const copy = {
     commercialLandNote: { en: 'Purpose-built coverage for sites and facilities with larger footprints.', ar: 'تغطية مصممة للأراضي والمنشآت ذات المساحات الأكبر.' },
     mostRequested: { en: 'Popular', ar: 'الأكثر طلباً' },
     select: { en: 'Select', ar: 'اختيار' },
+    priceDisclaimer: {
+      en: 'Final price is confirmed after address and distance review.',
+      ar: 'يتم تأكيد السعر النهائي بعد مراجعة العنوان والمسافة.',
+    },
     standalone: { en: 'Standalone service request', ar: 'طلب خدمة منفردة' },
     standaloneNote: { en: 'A la carte · choose one service', ar: 'حسب الطلب · اختر خدمة واحدة' },
     currencyLabel: { en: 'Display currency', ar: 'العملة المعروضة' },
@@ -235,7 +239,7 @@ export const packages: PackageOffer[] = [
     category: 'residential',
     name: { en: 'Basic', ar: 'أساسية' },
     eyebrow: { en: 'Residential / 01', ar: 'سكنية / 01' },
-    price: 77,
+    price: 50,
     measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
     description: { en: 'A precise visual foundation for apartments, villas, and smaller homes.', ar: 'أساس بصري دقيق للشقق والفلل والمنازل الصغيرة.' },
     features: [
@@ -250,7 +254,7 @@ export const packages: PackageOffer[] = [
     category: 'residential',
     name: { en: 'Premium', ar: 'بريميوم' },
     eyebrow: { en: 'Residential / 02', ar: 'سكنية / 02' },
-    price: 129,
+    price: 120,
     measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
     description: { en: 'A complete listing story, designed to make a scroll stop.', ar: 'قصة عقار متكاملة مصممة لإيقاف التمرير.' },
     features: [
@@ -265,7 +269,7 @@ export const packages: PackageOffer[] = [
     category: 'residential',
     name: { en: 'Ultimate', ar: 'شاملة' },
     eyebrow: { en: 'Residential / 03', ar: 'سكنية / 03' },
-    price: 207,
+    price: 200,
     measurement: { en: 'Up to 150m²', ar: 'حتى 150 متر مربع' },
     description: { en: 'Every angle, every detail, and a tour buyers can inhabit.', ar: 'كل زاوية وكل تفصيل وجولة يعيشها المشتري.' },
     features: [
@@ -281,7 +285,7 @@ export const packages: PackageOffer[] = [
     category: 'land-commercial',
     name: { en: 'Land Package', ar: 'باقة الأراضي' },
     eyebrow: { en: 'Land / 01', ar: 'أراضٍ / 01' },
-    price: 64,
+    price: 60,
     measurement: { en: 'Up to 3000m²', ar: 'حتى 3000 متر مربع' },
     description: { en: 'Make the full footprint visible, from boundary to approach.', ar: 'أظهر كامل مساحة الأرض، من الحدود إلى المدخل.' },
     features: [
@@ -296,7 +300,7 @@ export const packages: PackageOffer[] = [
     category: 'land-commercial',
     name: { en: 'Commercial Package', ar: 'باقة المنشآت التجارية' },
     eyebrow: { en: 'Commercial / 02', ar: 'تجارية / 02' },
-    price: 129,
+    price: 120,
     measurement: { en: 'Up to 500m²', ar: 'حتى 500 متر مربع' },
     description: { en: 'A clear, publish-ready view of commercial and industrial facilities.', ar: 'صورة واضحة وجاهزة للنشر للمنشآت التجارية والصناعية.' },
     features: [
