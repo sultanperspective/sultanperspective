@@ -74,6 +74,16 @@ export const copy = {
     playReel: { en: 'Play studio reel', ar: 'تشغيل عرض الاستوديو' },
     scroll: { en: 'Scroll to explore', ar: 'مرّر للاستكشاف' },
   },
+  demoTour: {
+    eyebrow: { en: 'Try the experience / Free demo', ar: 'جرّب التجربة / جولة مجانية' },
+    titleLead: { en: 'Walk through a', ar: 'تجوّل داخل' },
+    titleAccent: { en: '360° tour for free.', ar: 'جولة 360° مجاناً.' },
+    description: {
+      en: 'Step inside an interactive Matterport tour and feel how buyers can explore a property before the first call.',
+      ar: 'جرّب جولة Matterport التفاعلية واكتشف كيف يمكن للمشترين استكشاف العقار قبل أول اتصال — مجاناً.',
+    },
+    frameLabel: { en: 'Interactive Matterport demo', ar: 'جولة Matterport تفاعلية تجريبية' },
+  },
   promotions: {
     eyebrow: { en: 'Special offer / Book more, save more', ar: 'عرض خاص / احجز أكثر، ووفر أكثر' },
     bundle: { en: '30% discount for every 2 properties booked together', ar: 'خصم 30٪ لكل عقارين يتم حجزهما معاً' },
@@ -200,7 +210,7 @@ export const copy = {
       propertyCount: { en: 'e.g. 2', ar: 'مثال: 2' },
     },
     disclaimer: { en: 'By sending this request, you are asking for availability, not confirming a booking.', ar: 'بإرسال هذا الطلب، أنت تستفسر عن التوافر ولا تؤكد الحجز.' },
-    submit: { en: 'Request availability', ar: 'اطلب التوافر' },
+    submit: { en: 'Continue in WhatsApp', ar: 'المتابعة عبر واتساب' },
     received: { en: 'Request received', ar: 'تم استلام الطلب' },
     receivedTitle: { en: 'We have your coordinates.', ar: 'وصلتنا تفاصيلك.' },
     receivedText: { en: 'Thank you, {name}. Sultan Perspective will be in touch shortly to confirm your shoot details.', ar: 'شكراً لك، {name}. سيتواصل معك سلطان برسبكتيف قريباً لتأكيد تفاصيل الجلسة.' },

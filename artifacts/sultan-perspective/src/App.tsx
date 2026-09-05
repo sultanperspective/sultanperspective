@@ -283,7 +283,64 @@ function App() {
     if (!form.packageId) nextErrors.packageId = getText(copy.errors.package, locale);
     if (form.packageId === 'standalone' && selectedOptions.length !== 1) nextErrors.packageId = getText(copy.errors.standalone, locale);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length === 0) setSubmitted(true);
+    if (Object.keys(nextErrors).length === 0) {
+      const selectedServiceNames = selectedOptions
+        .filter((id) => availableAddOns.some((addon) => addon.id === id))
+        .map((id) => addOns.find((addon) => addon.id === id))
+        .filter((addon): addon is (typeof addOns)[number] => Boolean(addon))
+        .map((addon) => getText(addon.name, locale));
+      const packageName = isStandalone
+        ? getText(copy.pricing.standalone, locale)
+        : getText(chosenPackage?.name ?? packages[1].name, locale);
+      const labels = isArabic
+        ? {
+            name: 'الاسم',
+            email: 'البريد الإلكتروني',
+            phone: 'رقم الهاتف',
+            date: 'التاريخ المفضل',
+            address: 'عنوان العقار',
+            size: 'المساحة التقريبية',
+            properties: 'عدد العقارات',
+            package: 'الباقة',
+            services: 'الخدمات المختارة',
+            estimate: 'التقدير الحالي',
+          }
+        : {
+            name: 'Name',
+            email: 'Email',
+            phone: 'Phone',
+            date: 'Preferred date',
+            address: 'Property address',
+            size: 'Approx. square footage',
+            properties: 'Number of properties',
+            package: 'Package',
+            services: 'Selected services',
+            estimate: 'Current estimate',
+          };
+      const services = selectedServiceNames.length
+        ? selectedServiceNames.join(', ')
+        : isStandalone
+          ? isArabic ? 'لم يتم اختيار خدمة' : 'No standalone service selected'
+          : isArabic ? 'الخدمات الأساسية ضمن الباقة' : 'Included package services';
+      const message = [
+        isArabic ? 'مرحباً سلطان برسبكتيف، أود طلب التوافر والتسعير لهذا المشروع:' : 'Hello Sultan Perspective, I would like to request availability and pricing for this project:',
+        '',
+        `${labels.name}: ${form.name}`,
+        `${labels.email}: ${form.email}`,
+        `${labels.phone}: ${form.phone}`,
+        `${labels.date}: ${form.date}`,
+        `${labels.address}: ${form.address}`,
+        `${labels.size}: ${form.squareFootage}m²`,
+        `${labels.properties}: ${propertyCount}`,
+        `${labels.package}: ${packageName}`,
+        `${labels.services}: ${services}`,
+        `${labels.estimate}: ${formatMoney(currentEstimate.totalUsd, currency, locale)}`,
+        '',
+        isArabic ? 'يرجى تأكيد السعر النهائي بعد مراجعة العنوان والمسافة.' : 'Please confirm the final price after reviewing the address and distance.',
+      ].join('\n');
+      setSubmitted(true);
+      window.location.assign(`https://wa.me/${brand.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`);
+    }
   };
 
   const navItems = [
@@ -415,6 +472,32 @@ function App() {
             </div>
           </div>
         </section>
+
+         <section id="demo-tour" className="border-y border-[#d5cfc4] bg-[#1d2027] text-[#f5eee3]">
+           <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-16 lg:px-12 lg:py-24">
+             <div>
+               <div className="mono-label flex items-center gap-3 text-[10px] text-[#d29a38]"><span className="h-px w-8 bg-[#d29a38]" /> {getText(copy.demoTour.eyebrow, locale)}</div>
+               <h2 className="display-font mt-6 text-5xl leading-[.95] tracking-[-.06em] sm:text-6xl">{getText(copy.demoTour.titleLead, locale)} <span className="text-[#d29a38]">{getText(copy.demoTour.titleAccent, locale)}</span></h2>
+               <p className="mt-6 max-w-[420px] text-sm leading-7 text-[#f5eee3]/65 sm:text-base">{getText(copy.demoTour.description, locale)}</p>
+             </div>
+             <div className="overflow-hidden border border-[#d29a38]/35 bg-black shadow-2xl">
+               <div className="flex items-center justify-between gap-4 border-b border-[#f5eee3]/10 px-4 py-3">
+                 <span className="mono-label text-[9px] text-[#f5eee3]/55">{getText(copy.demoTour.frameLabel, locale)}</span>
+                 <span className="text-[9px] uppercase tracking-[.16em] text-[#d29a38]">Matterport / 360°</span>
+               </div>
+               <div className="aspect-[4/3] sm:aspect-video">
+                 <iframe
+                   src="https://my.matterport.com/show?play=0&playsInline=1&lang=en-US&m=d4tQBtLFUWu"
+                   title={getText(copy.demoTour.frameLabel, locale)}
+                   className="h-full w-full border-0"
+                   allow="fullscreen; autoplay; xr-spatial-tracking"
+                   allowFullScreen
+                   loading="lazy"
+                 />
+               </div>
+             </div>
+           </div>
+         </section>
 
         <section id="pricing" className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
