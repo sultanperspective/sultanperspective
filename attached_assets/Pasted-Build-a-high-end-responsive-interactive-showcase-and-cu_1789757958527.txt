@@ -1,0 +1,60 @@
+Build a high-end, responsive, interactive showcase and custom order website for a woodworking and joinery factory.
+
+### Business Info & Branding:
+- Business Name: "منشرة راشيا الحديثة" (Rashaya Modern Sawmill)
+- WhatsApp Number for Orders: "+96170409790" (or 70409790)
+- Google Maps Location: "https://maps.app.goo.gl/p2nvoMtwKjWCiZEB8?g_st=ic"
+- Language Switcher: Top Navigation Bar with Arabic (RTL - Default) and English (LTR) toggle.
+
+---
+
+### Core Sections & Features:
+
+1. **Header & Navigation:**
+   - Brand Logo / Name: "منشرة راشيا الحديثة"
+   - Nav Links: الرئيسية (Home), الكتالوج (Catalog), حاسبة الطلب (Custom Quote), خريطة الموقع (Location), تواصل معنا (Contact).
+   - Language Switcher Button (عربي / English).
+   - Direct WhatsApp Fast-Call Button.
+
+2. **Hero Section:**
+   - Premium headline presenting custom doors, closets, kitchens, and wall/ceiling cladding.
+   - Action buttons: "تصفح الموديلات" and "طلب تسعيرة مخصصة".
+   - High-quality wood craftsmanship background image.
+
+3. **Interactive Catalog & Portfolio (With High-Quality Unsplash Placeholders):**
+   - Filter tabs: الكل, الأبواب, خزائن الملابس, المطابخ, تكسيات الجدران والأسقف.
+   - Display cards with clear images, title, material tags, and a "تفاصيل / طلب" button.
+
+4. **Custom Order & Specification Builder (Interactive Form):**
+   A step-by-step interactive form that dynamically generates options based on the exact user specifications below:
+
+   A. **الأبواب (Doors - No moisture option needed):**
+      - Type 1: **مداخل (Entrances)** -> Options: (حديد مكسو / خشب طبيعي), المقاس, نوع الخشب, مستوى الديكور, الإكسسوارات.
+      - Type 2: **داخلية (Interior)** -> Options: (خشب طبيعي / MDF كبس), نوع الخشب, مستوى الديكور [سادة | بسيط | معقد], نوع القشرة, نوع الطلاء/الدهان, الإكسسوارات.
+
+   B. **خزائن الملابس (Closets - Includes Board Type: عادي / مقاوم للرطوبة):**
+      - Type 1: **عصري (لامايكا)** -> Options: الموديل, المقاس, اللون, الخامة, نوع اللوح (عادي / مقاوم للرطوبة).
+      - Type 2: **MDF** -> Options: (دهان بويا / قشرة طبيعية), مستوى الديكور [سادة | وسط | معقد], نوع القشرة, نوع اللوح (عادي / مقاوم للرطوبة).
+
+   C. **المطابخ (Kitchens - Includes Board Type: عادي / مقاوم للرطوبة):**
+      - Type 1: **خشب طبيعي** -> Options: تحديد نوع الخشب.
+      - Type 2: **MDF** -> Options: (قشرة طبيعية / بويا), الموديل [سادة | وسط | معقد], نوع اللوح (عادي / مقاوم للرطوبة).
+      - Type 3: **لامايكا** -> Options: الموديل, جودة الإكسسوارات [عادية | فاخرة], نوع اللوح (عادي / مقاوم للرطوبة).
+
+   D. **تكسية وعزل الأسقف والجدران (Wall & Ceiling Cladding - Includes Board Type: عادي / مقاوم للرطوبة):**
+      - Options: المساحة (طول × عرض), الخامة (قشرة على MDF / لامايكا / MDF), نوع اللوح (عادي / مقاوم للرطوبة).
+
+5. **Automatic WhatsApp Integration (نظام تحويل الطلب):**
+   - Upon completing the form or clicking "إرسال الطلب عبر واتساب", compile all user selections into a clean, formatted text message and redirect directly to:
+     `https://wa.me/96170409790?text=...`
+
+6. **Footer & Location Section:**
+   - Embedded interactive map or direct button linking to: `https://maps.app.goo.gl/p2nvoMtwKjWCiZEB8?g_st=ic`
+   - Phone, WhatsApp (70409790), Working Hours, and Social Links.
+
+---
+
+### Code Structure for Future Image & Data Swapping:
+- Put all catalog products, descriptions, and placeholder image URLs in a single dedicated file `data.js` or `data.json`.
+- Organize image fields clearly so I can swap placeholder Unsplash URLs with my own actual project photos easily later.
+- Clean, responsive layout using modern HTML, CSS (or Tailwind CSS), and vanilla JavaScript.

@@ -487,7 +487,7 @@ function App() {
                </div>
                <div className="aspect-[4/3] sm:aspect-video">
                  <iframe
-                   src="https://my.matterport.com/show?play=0&playsInline=1&lang=en-US&m=d4tQBtLFUWu"
+                   src="https://my.matterport.com/show?play=0&playsInline=1&lang=en-US&m=fUSngcKz1W7"
                    title={getText(copy.demoTour.frameLabel, locale)}
                    className="h-full w-full border-0"
                    allow="fullscreen; autoplay; xr-spatial-tracking"
